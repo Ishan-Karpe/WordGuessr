@@ -35,10 +35,6 @@ uncommon = [
 ]
 
 
-global word_counter, letter_counter
-word_counter = 0
-letter_counter = 0
-
 def common_lvl():
     cword = random.choice(common)
     attempts = 7
@@ -47,25 +43,26 @@ def common_lvl():
     while attempts > 0 and "_" in guessed_word:
         print("Current word: " + " ".join(guessed_word))
         guess = input("Guess a letter: ").lower()
+        if not guess or len(guess) != 1 or not guess.isalpha():
+            print("Invalid input. Please enter a single letter.")
+            continue
         if guess in cword:
             for i in range(len(cword)):
                 if cword[i] == guess:
                     guessed_word[i] = guess
-                    attempts -= 1
-                    letter_counter += 1 # type: ignore
-                else:
-                    continue
             print("Good guess!")
+            attempts -= 1
+            print(f"Attempts left: {attempts}")
         else:
             attempts -= 1
             print(f"Wrong guess! Attempts left: {attempts}")
         
     if "_" not in guessed_word:
         print("Congratulations! You've guessed the word:", cword)
-        word_counter += 1 #type: ignore
         playAgain()
     else:
         print(f'\nYou\'ve run out of attempts! The word was: {cword}')
+        playAgain()
 
 
 def uncommon_lvl():
@@ -75,26 +72,27 @@ def uncommon_lvl():
 
     while attempts > 0 and "_" in guessed_word_1:
         print("Current word: " + " ".join(guessed_word_1))
-        guess = input("Guess a letter: ").lower()
-        if guess in uword:
+        guess_1 = input("Guess a letter: ").lower()
+        if not guess_1 or len(guess_1) != 1 or not guess_1.isalpha():
+            print("Invalid input. Please enter a single letter.")
+            continue
+        if guess_1 in uword:
             for i in range(len(uword)):
-                if uword[i] == guess:
-                    guessed_word_1[i] = guess
-                    attempts -= 1
-                    word_counter += 1 # type: ignore
-                else:
-                    continue
+                if uword[i] == guess_1:
+                    guessed_word_1[i] = guess_1
             print("Good guess!")
+            attempts -= 1
+            print(f"Attempts left: {attempts}")
         else:
             attempts -= 1
             print(f"Wrong guess! Attempts left: {attempts}")
 
     if "_" not in guessed_word_1:
         print("Congratulations! You've guessed the word:", uword)
-        word_counter += 1 # type: ignore
         playAgain()
     else:
         print(f'\nYou\'ve run out of attempts! The word was: {uword}')
+        playAgain()
 
 def main():
     print("Welcome to Word Guessr!")
@@ -113,8 +111,6 @@ def main():
 
 
 def playAgain():
-    stats = f"In your last round, Total words guessed: {word_counter}, Total letters guessed: {letter_counter}"
-    print(stats)
     again = input("Do you want to play again? (yes/no): ").lower()
     if again == 'yes':
         main()
