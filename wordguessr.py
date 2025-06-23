@@ -34,6 +34,11 @@ uncommon = [
         "lachrymose", "ruminate", "erudite", "sanctimonious", "bilious", "contumacious"
 ]
 
+
+global word_counter, letter_counter
+word_counter = 0
+letter_counter = 0
+
 def common_lvl():
     cword = random.choice(common)
     attempts = 7
@@ -46,6 +51,8 @@ def common_lvl():
             for i in range(len(cword)):
                 if cword[i] == guess:
                     guessed_word[i] = guess
+                    attempts -= 1
+                    letter_counter += 1 # type: ignore
                 else:
                     continue
             print("Good guess!")
@@ -55,7 +62,8 @@ def common_lvl():
         
     if "_" not in guessed_word:
         print("Congratulations! You've guessed the word:", cword)
-        quit()
+        word_counter += 1 #type: ignore
+        playAgain()
     else:
         print(f'\nYou\'ve run out of attempts! The word was: {cword}')
 
@@ -72,6 +80,8 @@ def uncommon_lvl():
             for i in range(len(uword)):
                 if uword[i] == guess:
                     guessed_word_1[i] = guess
+                    attempts -= 1
+                    word_counter += 1 # type: ignore
                 else:
                     continue
             print("Good guess!")
@@ -79,11 +89,12 @@ def uncommon_lvl():
             attempts -= 1
             print(f"Wrong guess! Attempts left: {attempts}")
 
-        if "_" not in guessed_word_1:
-            print("Congratulations! You've guessed the word:", uword)
-            break
-        else:
-            print(f'\nYou\'ve run out of attempts! The word was: {uword}')
+    if "_" not in guessed_word_1:
+        print("Congratulations! You've guessed the word:", uword)
+        word_counter += 1 # type: ignore
+        playAgain()
+    else:
+        print(f'\nYou\'ve run out of attempts! The word was: {uword}')
 
 def main():
     print("Welcome to Word Guessr!")
@@ -99,6 +110,19 @@ def main():
         uncommon_lvl()
     else:
         print("Invalid choice. Please choose a valid option.")
+
+
+def playAgain():
+    stats = f"In your last round, Total words guessed: {word_counter}, Total letters guessed: {letter_counter}"
+    print(stats)
+    again = input("Do you want to play again? (yes/no): ").lower()
+    if again == 'yes':
+        main()
+    elif again == 'no':
+        print("Thanks for playing! Goodbye!")
+    else:
+        print("Invalid input. Please enter 'yes' or 'no'.")
+        return
 
 if __name__ == "__main__":
     main()
