@@ -10,8 +10,8 @@ common = [
         "people", "into", "year", "your", "good", "some", "could", "see", "other", "than",
         "then", "now", "look", "only", "come", "its", "over", "think", "also", "back",
         "after", "use", "two", "how", "our", "work", "first", "well", "way", "even",
-        "new", "want", "because", "any", "these", "give", "day", "most", "us", "more",
-    ],
+        "new", "want", "because", "any", "these", "give", "day", "most", "us", "more"
+    ]
 
 uncommon = [
         "ubiquitous", "ephemeral", "cacophony", "serendipity", "mellifluous",
@@ -43,8 +43,8 @@ def common_lvl():
         print("Current word: " + " ".join(guessed_word))
         guess = input("Guess a letter: ").lower()
         if guess in cword:
-            for i, letter in enumerate(cword):
-                if letter == guess:
+            for i in range(len(cword)):
+                if cword[i] == guess:
                     guessed_word[i] = guess
                 else:
                     continue
@@ -53,20 +53,52 @@ def common_lvl():
             attempts -= 1
             print(f"Wrong guess! Attempts left: {attempts}")
         
-        if "_" not in guessed_word:
-            print("Congratulations! You've guessed the word:", cword)
-            break
-        else:
-            print(f'\nYou\'ve run out of attempts! The word was: {cword}')
+    if "_" not in guessed_word:
+        print("Congratulations! You've guessed the word:", cword)
+        quit()
+    else:
+        print(f'\nYou\'ve run out of attempts! The word was: {cword}')
 
 
 def uncommon_lvl():
     uword = random.choice(uncommon)
     attempts = 15
-    guessed_word_1 = ['_'] * len(uword):
+    guessed_word_1 = ['_'] * len(uword)
 
     while attempts > 0 and "_" in guessed_word_1:
         print("Current word: " + " ".join(guessed_word_1))
         guess = input("Guess a letter: ").lower()
         if guess in uword:
-            
+            for i in range(len(uword)):
+                if uword[i] == guess:
+                    guessed_word_1[i] = guess
+                else:
+                    continue
+            print("Good guess!")
+        else:
+            attempts -= 1
+            print(f"Wrong guess! Attempts left: {attempts}")
+
+        if "_" not in guessed_word_1:
+            print("Congratulations! You've guessed the word:", uword)
+            break
+        else:
+            print(f'\nYou\'ve run out of attempts! The word was: {uword}')
+
+def main():
+    print("Welcome to Word Guessr!")
+    print("Choose a difficulty level:")
+    print("1. Common Words")
+    print("2. Uncommon Words")
+    
+    choice = int(input("Enter 1 or 2: "))
+    
+    if choice == 1:
+        common_lvl()
+    elif choice == 2:
+        uncommon_lvl()
+    else:
+        print("Invalid choice. Please choose a valid option.")
+
+if __name__ == "__main__":
+    main()
