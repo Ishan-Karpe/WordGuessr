@@ -41,3 +41,32 @@ def common_lvl():
 
     while attempts > 0 and "_" in guessed_word:
         print("Current word: " + " ".join(guessed_word))
+        guess = input("Guess a letter: ").lower()
+        if guess in cword:
+            for i, letter in enumerate(cword):
+                if letter == guess:
+                    guessed_word[i] = guess
+                else:
+                    continue
+            print("Good guess!")
+        else:
+            attempts -= 1
+            print(f"Wrong guess! Attempts left: {attempts}")
+        
+        if "_" not in guessed_word:
+            print("Congratulations! You've guessed the word:", cword)
+            break
+        else:
+            print(f'\nYou\'ve run out of attempts! The word was: {cword}')
+
+
+def uncommon_lvl():
+    uword = random.choice(uncommon)
+    attempts = 15
+    guessed_word_1 = ['_'] * len(uword):
+
+    while attempts > 0 and "_" in guessed_word_1:
+        print("Current word: " + " ".join(guessed_word_1))
+        guess = input("Guess a letter: ").lower()
+        if guess in uword:
+            
