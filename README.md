@@ -4,3 +4,4 @@
 
 ### Setup:
 - you can edit the words list if you want as what i've provided is a sample.
+- two paths to choose, the common side or the uncommon side

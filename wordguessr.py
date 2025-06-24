@@ -36,21 +36,21 @@ uncommon = [
 
 
 def common_lvl():
-    cword = random.choice(common)
+    cword = random.choice(common) #choice instead of randint
     attempts = 7
-    guessed_word = ["_"] * len(cword)
+    guessed_word = ["_"] * len(cword) # Initialize guessed_word with underscores
 
     while attempts > 0 and "_" in guessed_word:
-        print("Current word: " + " ".join(guessed_word))
+        print("Current word: " + " ".join(guessed_word)) # Display the current state of the guessed word
         guess = input("Guess a letter: ").lower()
-        if not guess or len(guess) != 1 or not guess.isalpha():
+        if not guess or len(guess) != 1 or not guess.isalpha(): # if the input is not a single letter or is not alphabetic
             print("Invalid input. Please enter a single letter.")
             continue
         if guess in cword:
             for i in range(len(cword)):
-                if cword[i] == guess:
+                if cword[i] == guess: # loops through the word and replaces underscores with the guessed letter
                     guessed_word[i] = guess
-            print("Good guess!")
+            print("Good guess! Keep going!")
             attempts -= 1
             print(f"Attempts left: {attempts}")
         else:
@@ -67,7 +67,7 @@ def common_lvl():
 
 def uncommon_lvl():
     uword = random.choice(uncommon)
-    attempts = 15
+    attempts = 15 #more attempts for uncommon words as they are longer and harder
     guessed_word_1 = ['_'] * len(uword)
 
     while attempts > 0 and "_" in guessed_word_1:
